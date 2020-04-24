@@ -1,16 +1,16 @@
 <?php session_start();
 
-// require __DIR__ .  '/vendor/autoload.php';
-
 $curl = curl_init();
 
-curl_setopt($curl, CURLOPT_URL, "https://api.mercadopago.com/v1/payments/" . $_SESSION["data"]["payment_id"] . "?access_token=APP_USR-8196777983571350-031822-2c462f0d08deb2f0b12e1b343176a42c-469485398");
+curl_setopt($curl, CURLOPT_URL, "https://api.mercadopago.com/v1/payments/" . $_SESSION["data"]["payment_id"] . "?access_token=APP_USR-8196777983571350-042414-0a4eebcea5beb5ed8db3d88765d539f6-469485398");
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
 $payData = curl_exec($curl);
 curl_close($curl);
 
 $payment_data = json_decode($payData);
+
+session_destroy();
 
 ?>
 

@@ -2,7 +2,7 @@
 
 require __DIR__ .  '/vendor/autoload.php';
 
-MercadoPago\SDK::setAccessToken('APP_USR-8196777983571350-031822-2c462f0d08deb2f0b12e1b343176a42c-469485398');
+MercadoPago\SDK::setAccessToken('APP_USR-8196777983571350-042414-0a4eebcea5beb5ed8db3d88765d539f6-469485398');
 
 $preference = new MercadoPago\Preference();
 
@@ -18,12 +18,12 @@ $preference->payment_methods = array(
 
 $preference->external_reference = "ABCD1234";
 
-$preference->notification_url = "https://gonzalovivas-mp-commerce-php.herokuapp.com/ipn.php";
+$preference->notification_url = "http://mp-ecommerce-php.growar.com.ar/ipn.php";
 
 $preference->back_urls = array(
-    "success" => "https://gonzalovivas-mp-commerce-php.herokuapp.com/pago-aprobado.php",
-    "failure" => "https://gonzalovivas-mp-commerce-php.herokuapp.com/pago-rechazado.php",
-    "pending" => "https://gonzalovivas-mp-commerce-php.herokuapp.com/pago-pendiente.php"
+    "success" => "http://mp-ecommerce-php.growar.com.ar/pago-aprobado.php",
+    "failure" => "http://mp-ecommerce-php.growar.com.ar/pago-rechazado.php",
+    "pending" => "http://mp-ecommerce-php.growar.com.ar/pago-pendiente.php"
 );
 $preference->auto_return = "approved";
 
@@ -33,7 +33,7 @@ $item->title = $_POST['title'];
 $item->description = 'Dispositivo móvil de Tienda e-commerce';
 $item->quantity = 1;
 $item->unit_price = $_POST['price'];
-$item->picture_url = $_POST['img'];
+$item->picture_url = 'http://mp-ecommerce-php.growar.com.ar/' . $_POST['img'];
 $preference->items = array($item);
 
 $payer = new MercadoPago\Payer();
@@ -46,12 +46,10 @@ $payer->phone = array(
 "area_code" => '011',
 "number" => '2222-3333'
 );
-
 $payer->identification = array(
 "type" => 'DNI',
 "number" => '22333444'
 );
-
 $payer->address = array(
 "street_name" => 'Falsa',
 "street_number" => 123,
@@ -60,8 +58,11 @@ $payer->address = array(
 
 $preference->payer = $payer;
 
-// var_dump($preference);
 $preference->save();
+
+$file = fopen("preference.txt", "w");
+fwrite($file, 'preference_id:' . $preference->id . PHP_EOL);
+fclose($file);
 
 ?>
 
@@ -191,10 +192,10 @@ $preference->save();
                                             </h3>
                                         </div>
                                         <h3 >
-                                            <?php echo $_POST['price'] ?>
+                                            <?php echo "$" . $_POST['price'] ?>
                                         </h3>
                                         <h3 >
-                                            <?php echo "$" . $_POST['unit'] ?>
+                                            <?php echo $_POST['unit'] ?>
                                         </h3>
                                     </div>
                                     <form action="./resultado.php"" method="POST">

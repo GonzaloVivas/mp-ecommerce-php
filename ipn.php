@@ -1,10 +1,10 @@
 <?php
     
     header("HTTP/1.1 200 OK");
-    
+
     require __DIR__ .  '/vendor/autoload.php';
 
-    MercadoPago\SDK::setAccessToken("APP_USR-8196777983571350-031822-2c462f0d08deb2f0b12e1b343176a42c-469485398");
+    MercadoPago\SDK::setAccessToken("APP_USR-8196777983571350-042414-0a4eebcea5beb5ed8db3d88765d539f6-469485398");
 
     $merchant_order = null;
 
@@ -13,15 +13,27 @@
             $payment = MercadoPago\Payment::find_by_id($_GET["id"]);
             $merchant_order = MercadoPago\MerchantOrder::find_by_id($payment->order->id);
 
-            $file = fopen("log.txt", "w");
-            fwrite($payment . PHP_EOL);
+            $file = fopen("payment.txt", "w");
+            fwrite($file, 'payment in' . PHP_EOL);
+            fwrite($file, 'id:' . $payment->id . PHP_EOL);
+            fwrite($file, 'status_detail:' . $payment->status_detail . PHP_EOL);
+            fwrite($file, 'total_pay:' . $payment->transaction_details->total_paid_amount . PHP_EOL);
             fclose($file);
 
+            // Gestiones al recibir payment
             break;
         case "merchant_order":
             $merchant_order = MercadoPago\MerchantOrder::find_by_id($_GET["id"]);
+            $file = fopen("merchant.txt", "w");
+            fwrite($file, 'merchant_order_in' . PHP_EOL);
+            fclose($file);
+
+            // Gestiones al recibir merchant_order
             break;
+
     }
+
+    // Resto de la lógica de negocio
 
     $paid_amount = 0;
     foreach ($merchant_order->payments as $payment) {
