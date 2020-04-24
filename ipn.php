@@ -1,6 +1,7 @@
 <?php
     
-    header("HTTP/1.1 200 OK");
+    // header("HTTP/1.1 200 OK");
+    http_response_code(200);
 
     require __DIR__ .  '/vendor/autoload.php';
 
