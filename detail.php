@@ -1,3 +1,70 @@
+<?php
+
+require __DIR__ .  '/vendor/autoload.php';
+
+MercadoPago\SDK::setAccessToken('APP_USR-6317427424180639-090914-5c508e1b02a34fcce879a999574cf5c9-469485398');
+
+$preference = new MercadoPago\Preference();
+
+$preference->payment_methods = array(
+    "excluded_payment_methods" => array(
+      array("id" => "amex")
+    ),
+    "excluded_payment_types" => array(
+      array("id" => "atm")
+    ),
+    "installments" => 6
+);
+
+$preference->external_reference = "ABCD1234";
+
+$preference->notification_url = "";
+
+$preference->back_urls = array(
+    "success" => "https://www.tu-sitio/success",
+    "failure" => "http://www.tu-sitio/failure",
+    "pending" => "http://www.tu-sitio/pending"
+);
+$preference->auto_return = "approved";
+
+$item = new MercadoPago\Item();
+$item->id = 1234;
+$item->title = $_POST['title'];
+$item->description = 'Dispositivo móvil de Tienda e-commerce';
+$item->quantity = 1;
+$item->unit_price = $_POST['price'];
+$item->picture_url = $_POST['img'];
+$preference->items = array($item);
+
+$payer = new MercadoPago\Payer();
+$payer->id = 471923173;
+$payer->name = 'Lalo';
+$payer->surname = 'Landa';
+$payer->email = 'test_user_63274575@testuser.com';
+// $payer->date_created = "2018-06-02T12:58:41.425-04:00";
+$payer->phone = array(
+"area_code" => '011',
+"number" => '2222-3333'
+);
+
+$payer->identification = array(
+"type" => 'DNI',
+"number" => '22333444'
+);
+
+$payer->address = array(
+"street_name" => 'Falsa',
+"street_number" => 123,
+"zip_code" => '1111'
+);
+
+$preference->payer = $payer;
+
+// var_dump($preference);
+$preference->save();
+
+?>
+
 <!DOCTYPE html>
 <html class="supports-animation supports-columns svg no-touch no-ie no-oldie no-ios supports-backdrop-filter as-mouseuser" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
@@ -130,7 +197,16 @@
                                             <?php echo "$" . $_POST['unit'] ?>
                                         </h3>
                                     </div>
-                                    <button type="submit" class="mercadopago-button" formmethod="post">Pagar</button>
+                                    <form action="/procesar-pago" method="POST">
+                                        <script
+                                        src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
+                                        data-preference-id="<?php echo $preference->id; ?>"
+                                        data-header-color="#2D3277)"
+                                        data-elements-color="#2D3277)"
+                                        data-button-label="Pagar la compra">
+                                        </script>
+                                    </form>
+                                    <!-- <button type="submit" class="mercadopago-button" formmethod="post">Pagar</button> -->
                                 </div>
                             </div>
                         </div>
