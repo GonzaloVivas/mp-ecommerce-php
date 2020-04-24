@@ -18,12 +18,12 @@ $preference->payment_methods = array(
 
 $preference->external_reference = "ABCD1234";
 
-$preference->notification_url = "";
+$preference->notification_url = "https://gonzalovivas-mp-commerce-php.herokuapp.com/ipn.php";
 
 $preference->back_urls = array(
-    "success" => "https://gonzalovivas-mp-commerce-php.herokuapp.com/pago-aprobado",
-    "failure" => "https://gonzalovivas-mp-commerce-php.herokuapp.com/pago-rechazado",
-    "pending" => "https://gonzalovivas-mp-commerce-php.herokuapp.com/pago-pendiente"
+    "success" => "https://gonzalovivas-mp-commerce-php.herokuapp.com/pago-aprobado.php",
+    "failure" => "https://gonzalovivas-mp-commerce-php.herokuapp.com/pago-rechazado.php",
+    "pending" => "https://gonzalovivas-mp-commerce-php.herokuapp.com/pago-pendiente.php"
 );
 $preference->auto_return = "approved";
 
