@@ -18,6 +18,7 @@
             fwrite($file, 'id:' . $payment->id . PHP_EOL);
             fwrite($file, 'status_detail:' . $payment->status_detail . PHP_EOL);
             fwrite($file, 'total_pay:' . $payment->transaction_details->total_paid_amount . PHP_EOL);
+            fwrite($file, 'total_pay:' . date('Y-m-d') . PHP_EOL);
             fclose($file);
 
             // Gestiones al recibir payment
