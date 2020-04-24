@@ -2,7 +2,7 @@
 
 require __DIR__ .  '/vendor/autoload.php';
 
-MercadoPago\SDK::setAccessToken('APP_USR-6317427424180639-090914-5c508e1b02a34fcce879a999574cf5c9-469485398');
+MercadoPago\SDK::setAccessToken('APP_USR-8196777983571350-031822-2c462f0d08deb2f0b12e1b343176a42c-469485398');
 
 $preference = new MercadoPago\Preference();
 
@@ -21,9 +21,9 @@ $preference->external_reference = "ABCD1234";
 $preference->notification_url = "";
 
 $preference->back_urls = array(
-    "success" => "https://www.tu-sitio/success",
-    "failure" => "http://www.tu-sitio/failure",
-    "pending" => "http://www.tu-sitio/pending"
+    "success" => "https://gonzalovivas-mp-commerce-php.herokuapp.com/pago-aprobado",
+    "failure" => "https://gonzalovivas-mp-commerce-php.herokuapp.com/pago-rechazado",
+    "pending" => "https://gonzalovivas-mp-commerce-php.herokuapp.com/pago-pendiente"
 );
 $preference->auto_return = "approved";
 
@@ -41,7 +41,7 @@ $payer->id = 471923173;
 $payer->name = 'Lalo';
 $payer->surname = 'Landa';
 $payer->email = 'test_user_63274575@testuser.com';
-// $payer->date_created = "2018-06-02T12:58:41.425-04:00";
+$payer->date_created = "2018-06-02T12:58:41.425-04:00";
 $payer->phone = array(
 "area_code" => '011',
 "number" => '2222-3333'
@@ -197,7 +197,7 @@ $preference->save();
                                             <?php echo "$" . $_POST['unit'] ?>
                                         </h3>
                                     </div>
-                                    <form action="/procesar-pago"" method="POST">
+                                    <form action="./resultado"" method="POST">
                                         <script
                                         src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
                                         data-preference-id="<?php echo $preference->id; ?>"
