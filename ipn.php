@@ -4,7 +4,7 @@
 
     require __DIR__ .  '/vendor/autoload.php';
 
-    MercadoPago\SDK::setAccessToken("APP_USR-6317427424180639-042414-47e969706991d3a442922b0702a0da44-469485398");
+    MercadoPago\SDK::setAccessToken("APP_USR-740851758029523-042418-43e1f0fbead7ac04df2ac7e18b1af3a5-469485398");
 
     $merchant_order = null;
 
@@ -18,7 +18,7 @@
             fwrite($file, 'id:' . $payment->id . PHP_EOL);
             fwrite($file, 'status_detail:' . $payment->status_detail . PHP_EOL);
             fwrite($file, 'total_pay:' . $payment->transaction_details->total_paid_amount . PHP_EOL);
-            fwrite($file, 'total_pay:' . date('Y-m-d') . PHP_EOL);
+            fwrite($file, 'total_pay:' . date('Y-m-d H:i:s') . PHP_EOL);
             fclose($file);
 
             // Gestiones al recibir payment

@@ -2,7 +2,7 @@
 
 $curl = curl_init();
 
-curl_setopt($curl, CURLOPT_URL, "https://api.mercadopago.com/v1/payments/" . $_SESSION["data"]["payment_id"] . "?access_token=APP_USR-6317427424180639-042414-47e969706991d3a442922b0702a0da44-469485398");
+curl_setopt($curl, CURLOPT_URL, "https://api.mercadopago.com/v1/payments/" . $_SESSION["data"]["payment_id"] . "?access_token=APP_USR-740851758029523-042418-43e1f0fbead7ac04df2ac7e18b1af3a5-469485398");
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
 $payData = curl_exec($curl);
